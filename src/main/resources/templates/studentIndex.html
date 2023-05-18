@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="img/logo.png" type="image/png"/>
+  <title>课程在线答疑网站</title>
+
+  <!-- Bootstrap -->
+  <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- iCheck -->
+  <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+  <!-- bootstrap-wysiwyg -->
+  <link href="vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+  <!-- Select2 -->
+  <link href="vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+  <!-- Switchery -->
+  <link href="vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+  <!-- starrr -->
+  <link href="vendors/starrr/dist/starrr.css" rel="stylesheet">
+  <!-- bootstrap-daterangepicker -->
+  <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link href="vendors/animate.css/animate.min.css" rel="stylesheet">
+  <!-- bootstrap-progressbar -->
+  <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+  <!-- PNotify -->
+  <link href="vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+  <link href="vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+  <link href="vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+
+  <!-- Custom Theme Style -->
+  <link href="build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+  <div class="main_container">
+    <div class="col-md-3 left_col">
+      <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+          <a href="StudentIndex" class="site_title"><span>课程在线答疑网站</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+          <div class="profile_pic">
+            <img src="img/photo.png" alt="..." class="img-circle profile_img">
+          </div>
+          <div class="profile_info">
+            <span>欢迎,</span>
+            <h2 th:text="${username}"></h2>
+          </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br/>
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <div class="menu_section">
+            <h3>学生界面</h3>
+            <ul class="nav side-menu">
+              <li><a href="StudentIndex"><i class="fa fa-user"></i> 首页 <span class="label label-success pull-right"></span></a></li>
+              <li><a href="StudentCourse"><i class="fa fa-book"></i> 我的课程 <span class="label label-success pull-right"></span></a></li>
+<!--              <li><a><i class="fa fa-list-ul"></i> 课程管理 <span class="fa fa-chevron-down"></span></a>-->
+<!--                <ul class="nav child_menu">-->
+<!--                  <li><a href="AdminCourse">修改、删除课程</a></li>-->
+<!--                  <li><a href="AddCourse">添加课程</a></li>-->
+<!--                </ul>-->
+<!--              </li>-->
+
+            </ul>
+          </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+          <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Logout" href="LogOut">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+          </a>
+        </div>
+        <!-- /menu footer buttons -->
+      </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+      <div class="nav_menu">
+        <div class="nav toggle">
+          <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+        </div>
+        <nav class="nav navbar-nav">
+          <ul class=" navbar-right">
+            <li class="nav-item dropdown open" style="padding-left: 15px;">
+              <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                 id="navbarDropdown" data-toggle="dropdown" aria-expanded="false" th:text="${username}">
+              </a>
+              <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="ChangePassword">修改密码</a>
+                <a class="dropdown-item" href="javascript:;">
+                  <i class="fa fa-cog pull-right"></i>
+                  <span>设置</span>
+                </a>
+                <a class="dropdown-item" href="LogOut"><i class="fa fa-sign-out pull-right"></i> 退出登录 </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <div class="">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>主 页</h3>
+          </div>
+
+          <div class="title_right">
+            <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="button">Go!</button>
+                    </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2><i class="fa fa-bars"></i> 消息 </h2>
+<!--                <ul class="nav navbar-right panel_toolbox">-->
+<!--                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+<!--                  </li>-->
+<!--                  <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"-->
+<!--                       aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+<!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                      <a class="dropdown-item" href="#">Settings 1</a>-->
+<!--                      <a class="dropdown-item" href="#">Settings 2</a>-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                  <li><a class="close-link"><i class="fa fa-close"></i></a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+
+                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                       role="tab" aria-controls="home" aria-selected="true">已完成的提问</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
+                       role="tab" aria-controls="profile" aria-selected="false">新回复的提问 <span class="badge bg-red pull-right" th:text="${questions2.size()}"></span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact"
+                       role="tab" aria-controls="contact" aria-selected="false">未回复的提问 <span class="badge bg-red pull-right" th:text="${questions3.size()}"></span></a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel"
+                       aria-labelledby="home-tab">
+                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                      <div class="panel" th:each="question1,itrat:${questions1}">
+                        <a class="panel-heading" role="tab" th:id="'headingOne'+${itrat.index}" data-toggle="collapse"
+                           data-parent="#accordion" th:href="'#collapseOne'+${itrat.index}" aria-expanded="true"
+                           th:aria-controls="'collapseOne'+${itrat.index}">
+                          <h4 class="panel-title" th:text="${itrat.index+1}+'、'+${question1.title}"></h4>
+
+                        </a>
+                        <div th:id="'collapseOne'+${itrat.index}" class="panel-collapse collapse in" role="tabpanel"
+                             th:aria-labelledby="'headingOne'+${itrat.index}">
+                          <div class="panel-body">
+                            <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                <th>课程名称</th>
+                                <th>提问时间</th>
+                                <th>提问详情</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td th:text="${courseName1.get(itrat.index)}"></td>
+                                <td th:text="${question1.time}"></td>
+                                <td><a th:href="'StudentQuestionDetail?questionid='+${question1.questionid}+'&questionUser='+${question1.userid}+'&courseid='+${question1.courseid}"><button class="btn btn-success">详情</button></a></td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="profile" role="tabpanel"
+                       aria-labelledby="profile-tab">
+                    <div class="accordion" id="accordion2" role="tablist" aria-multiselectable="true">
+                      <div class="panel" th:each="question2,itrat2:${questions2}">
+                        <a class="panel-heading" role="tab" th:id="'headingTwo'+${itrat2.index}" data-toggle="collapse"
+                           data-parent="#accordion2" th:href="'#collapseTwo'+${itrat2.index}" aria-expanded="true"
+                           th:aria-controls="'collapseTwo'+${itrat2.index}">
+                          <h4 class="panel-title" th:text="${itrat2.index+1}+'、'+${question2.title}"></h4>
+
+                        </a>
+                        <div th:id="'collapseTwo'+${itrat2.index}" class="panel-collapse collapse in" role="tabpanel"
+                             th:aria-labelledby="'headingTwo'+${itrat2.index}">
+                          <div class="panel-body">
+                            <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                <th>课程名称</th>
+                                <th>提问时间</th>
+                                <th>提问详情</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td th:text="${courseName2.get(itrat2.index)}"></td>
+                                <td th:text="${question2.time}"></td>
+                                <td><a th:href="'StudentQuestionDetail?questionid='+${question2.questionid}+'&questionUser='+${question2.userid}+'&courseid='+${question2.courseid}"><button class="btn btn-success">详情</button></a></td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="contact" role="tabpanel"
+                       aria-labelledby="contact-tab">
+                    <div class="accordion" id="accordion3" role="tablist" aria-multiselectable="true">
+                      <div class="panel" th:each="question3,itrat3:${questions3}">
+                        <a class="panel-heading" role="tab" th:id="'headingThree'+${itrat3.index}" data-toggle="collapse"
+                           data-parent="#accordion3" th:href="'#collapseThree'+${itrat3.index}" aria-expanded="true"
+                           th:aria-controls="'collapseThree'+${itrat3.index}">
+                          <h4 class="panel-title" th:text="${itrat3.index+1}+'、'+${question3.title}"></h4>
+
+                        </a>
+                        <div th:id="'collapseThree'+${itrat3.index}" class="panel-collapse collapse in" role="tabpanel"
+                             th:aria-labelledby="'headingThree'+${itrat3.index}">
+                          <div class="panel-body">
+                            <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                <th>课程名称</th>
+                                <th>提问时间</th>
+                                <th>提问详情</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td th:text="${courseName3.get(itrat3.index)}"></td>
+                                <td th:text="${question3.time}"></td>
+                                <td><a th:href="'StudentQuestionDetail?questionid='+${question3.questionid}+'&questionUser='+${question3.userid}+'&courseid='+${question3.courseid}"><button class="btn btn-success">详情</button></a></td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        Online Answering System by Jayce
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+  </div>
+</div>
+
+
+<!-- jQuery -->
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- FastClick -->
+<script src="vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="vendors/nprogress/nprogress.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="vendors/iCheck/icheck.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="vendors/moment/min/moment.min.js"></script>
+<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<script src="vendors/google-code-prettify/src/prettify.js"></script>
+<!-- jQuery Tags Input -->
+<script src="vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+<!-- Switchery -->
+<script src="vendors/switchery/dist/switchery.min.js"></script>
+<!-- Select2 -->
+<script src="vendors/select2/dist/js/select2.full.min.js"></script>
+<!-- Parsley -->
+<script src="vendors/parsleyjs/dist/parsley.min.js"></script>
+<!-- Autosize -->
+<script src="vendors/autosize/dist/autosize.min.js"></script>
+<!-- jQuery autocomplete -->
+<script src="vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+<!-- starrr -->
+<script src="vendors/starrr/dist/starrr.js"></script>
+<!-- PNotify -->
+<script src="vendors/pnotify/dist/pnotify.js"></script>
+<script src="vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="vendors/pnotify/dist/pnotify.nonblock.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="build/js/custom.min.js"></script>
+
+</body>
+</html>
